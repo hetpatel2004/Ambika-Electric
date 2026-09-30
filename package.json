@@ -4,9 +4,13 @@
   "version": "1.0.0",
   "description": "Ambika Electric - Modern Industrial Electrical Engineering Web Application",
   "type": "module",
+  "bin": {
+    "react-scripts": "./bin/react-scripts.js"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build.js",
+    "react-scripts": "node scripts/build.js",
     "preview": "vite preview",
     "lint": "oxlint"
   },
