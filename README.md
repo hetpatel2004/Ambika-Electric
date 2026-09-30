@@ -1,160 +1,108 @@
-# ⚡ Ambika Electric - Industrial Electrical Engineering Platform (MERN Stack)
+# ⚡ Ambika Electric - Industrial Electrical Engineering (React App)
 
-A modern, full-stack **MERN** (MongoDB, Express, React, Node.js) application built for **Ambika Electric** — an industrial electrical engineering enterprise based in Sardar Industrial Estate, Kadadra, Gujarat.
+A modern, attractive, interactive, and user-friendly single-page web application built with **React 19**, **Vite**, and **Tailwind CSS** for **Ambika Electric** — an industrial electrical engineering enterprise based in Sardar Industrial Estate, Kadadra, Gujarat.
 
-> **Note:** Per project requirements, this phase focuses on the complete MERN foundation and an attractive, modern, interactive, and user-friendly landing page with an interactive Industrial Load & Panel Estimator and service enquiry flow. User authentication (login/registration) has been intentionally omitted for now and can be plugged in when required.
+> **Architecture:** This is a **100% pure React frontend** project with zero backend or database dependencies. It is fully self-contained and ready to deploy to Netlify, Vercel, or GitHub Pages.
 
 ---
 
-## 🏢 Business Overview
+## 🏢 Business & Contact Profile
 
 - **Business Name**: Ambika Electric
-- **Category**: Industrial Electrical Engineering
 - **Proprietor**: Vishad Patel
-- **Official Website Reference**: [ambikaelectric.netlify.app](https://ambikaelectric.netlify.app/)
-- **Contact Numbers**: `+91 99985 77955` / `+91 94084 99942`
+- **Category**: Industrial Electrical Engineering
 - **Address**: Shop No. 22, Sardar Industrial Estate, Near Narnarayan Kanta, Kadadra, Gujarat – 382305, India
+- **Phone Numbers**: `+91 99985 77955` / `+91 94084 99942`
+- **Official Reference**: [ambikaelectric.netlify.app](https://ambikaelectric.netlify.app/)
+- **Copyright**: 2026
 
 ---
 
 ## 🚀 Key Features
 
-### 1. Modern Industrial UI & UX
-- Industrial aesthetic tailored for plant managers, machinery operators, and engineering contractors.
-- High-contrast electric amber and cyan glowing accents with glassmorphic cards.
-- Fully responsive layout optimized for mobile, tablet, and desktop viewports.
+### 1. Interactive Industrial Load & Panel Estimator
+- Input machinery specifications: **Motor Power (HP)**, **Operating Voltage (415V 3-Phase / 230V 1-Phase)**, and **Power Factor (cos φ)**.
+- Quick preset buttons: `3 HP`, `5 HP`, `7.5 HP`, `10 HP`, `15 HP`, `20 HP`, `30 HP`, `50 HP`.
+- **Live Calculations**:
+  - Full-Load Current (FLA) in Amperes (e.g. `13.1 A` for 10 HP @ 415V)
+  - Suggested multi-strand copper cable size (e.g. `2.5 sq mm`)
+  - Recommended MCB/MCCB rating (e.g. `20 A`)
+  - Recommended starter architecture (DOL, Star-Delta, Soft Starter/VFD)
+- **One-click Actions**:
+  - *"Request Custom Panel Quote for this Spec"* (auto-prefills specifications into quotation desk)
+  - *"Copy Specs"* to clipboard
 
-### 2. Interactive Industrial Load & Panel Estimator
-- Input machinery parameters: **Motor Power (HP)**, **System Voltage (415V 3-Phase / 230V 1-Phase)**, and **Power Factor (cos φ)**.
-- Preset buttons for common motor ratings (`3 HP`, `5 HP`, `7.5 HP`, `10 HP`, `15 HP`, `20 HP`, `30 HP`, `50 HP`).
-- Real-time calculations:
-  - **Full-Load Current (FLA)** (e.g. `13.1 A` for 10 HP at 415V / 0.85 PF)
-  - **Suggested Copper Cable Size** (e.g. `2.5 sq mm`)
-  - **Recommended MCB/MCCB Rating** (e.g. `20 A`)
-  - **Recommended Starter Configuration** (DOL, Automatic Star-Delta, or Soft Starter / VFD)
-- Features **"Request Custom Panel Quote for this Spec"** (auto-prefills specifications into quotation desk) and **"Copy Specification Summary"** to clipboard.
+### 2. High-Resolution Industrial Photography & Gallery
+- **Sardar Industrial Estate Facility Showcase**: Real-world workshop floor imagery showing motor rewinding bays, crane hoists, and control panel assembly.
+- **Core Specialties Showcase**: High-definition photos for Motor Winding, Control Panels, Diagnostics, and Automation.
+- **Interactive Lightbox Gallery**: Filter photos by category (`Motor Winding`, `Control Panels`, `Diagnostics`, `Automation`, `Workshop`) and click to view in full resolution.
 
-### 3. Core Specialties & Services Showcase
-- **Heavy Motor Winding & Maintenance**: AC/DC motors, slip-ring, induction machinery, and transformer overhaul.
-- **Custom Control Panel Design**: MCC, PCC, APFC capacitor banks, starter panels, and factory automation boards.
-- **Industrial Electrical Consulting**: Safety audits, load profiling, and preventive maintenance strategies.
-- **Industrial Automation**: VFD speed tuning, sensor interlocks, and PLC integration.
-
-### 4. Resilient Express & MongoDB Backend
-- Express REST API with CORS and JSON support.
-- MongoDB connection with automatic in-memory fallback during local development if a MongoDB daemon is not currently active.
-- Endpoints for enquiry submission, enquiry retrieval, and server-side estimator verification.
+### 3. Client-Side Enquiry & Instant WhatsApp Dispatch
+- Interactive consultation form and custom panel quotation modal.
+- Generates reference tracking codes (e.g. `#AE-4812`).
+- Features **one-click direct dispatch to Vishad Patel on WhatsApp (`+91 99985 77955`)** with all technical parameters pre-formatted.
+- Saves inquiries to browser `localStorage` for offline persistence.
 
 ---
 
-## 🛠️ Project Structure
+## 📂 Project Structure
 
 ```
 Ambika-Electric/
-├── package.json               # Root scripts (manages both client & server)
+├── package.json               # Scripts & dependencies (React 19, Vite, Tailwind CSS, Lucide)
+├── vite.config.js             # Vite configuration with Tailwind CSS plugin
+├── index.html                 # HTML shell with industrial metadata & Google Fonts
 ├── .gitignore
 ├── README.md
-├── server/                    # Express + Node.js + MongoDB Backend
-│   ├── package.json
-│   ├── index.js               # Server entry point (Port 5000)
-│   ├── .env                   # Environment config
-│   ├── .env.example
-│   ├── config/
-│   │   └── db.js              # MongoDB Mongoose connection handler
-│   ├── models/
-│   │   └── Enquiry.js         # Mongoose schema for inquiries & estimator leads
-│   ├── controllers/
-│   │   └── enquiryController.js
-│   └── routes/
-│       ├── enquiryRoutes.js   # POST /api/enquiries, GET /api/enquiries
-│       └── estimatorRoutes.js # POST /api/estimator/calculate
-└── client/                    # React 19 + Vite + Tailwind CSS Frontend
-    ├── package.json
-    ├── vite.config.js         # Configured with proxy to port 5000
-    ├── index.html             # Industrial branding & SEO meta
-    └── src/
-        ├── App.jsx            # Main app assembly & modal state
-        ├── main.jsx
-        ├── index.css          # Tailwind CSS v4 & custom animations
-        ├── components/
-        │   ├── Navbar.jsx         # Sticky navbar with direct call & quote trigger
-        │   ├── Hero.jsx           # Industrial hero section with capability card
-        │   ├── Services.jsx       # 4 core engineering specialties
-        │   ├── Estimator.jsx      # Interactive Load & Panel Estimator
-        │   ├── WhyChooseUs.jsx    # Quality assurances & target sectors
-        │   ├── Workflow.jsx       # 4-step engineering protocol
-        │   ├── ContactSection.jsx # Contact info & interactive form (API connected)
-        │   ├── QuoteModal.jsx     # Light-dismiss popup for custom panel quotes
-        │   └── Footer.jsx         # 2026 copyright, address & quick links
-        ├── data/
-        │   └── servicesData.js    # Data constants based on company profile
-        └── utils/
-            └── electricalCalc.js  # Motor FLA, cable, and breaker calculation algorithms
+├── public/
+│   ├── favicon.svg            # Electric bolt favicon
+│   └── images/                # High-res industrial photographs
+│       ├── hero_workshop.jpg
+│       ├── motor_winding.jpg
+│       ├── custom_control_panel.jpg
+│       ├── electrical_diagnostics.jpg
+│       └── industrial_automation.jpg
+└── src/
+    ├── App.jsx                # Main coordinator & modal management
+    ├── main.jsx               # React DOM root entry
+    ├── index.css              # Tailwind CSS v4 styling & electric glows
+    ├── components/
+    │   ├── Navbar.jsx         # Sticky header with hotline and quote actions
+    │   ├── Hero.jsx           # Industrial headline, live workshop badge, hero photo
+    │   ├── Services.jsx       # 4 core specialties with real photography
+    │   ├── Estimator.jsx      # Interactive Load & Panel Estimator
+    │   ├── Gallery.jsx        # Workshop & Engineering Gallery with Lightbox
+    │   ├── WhyChooseUs.jsx    # Quality assurances & target manufacturing sectors
+    │   ├── Workflow.jsx       # 4-step engineering protocol
+    │   ├── ContactSection.jsx # Contact info, location photo, form & WhatsApp action
+    │   ├── QuoteModal.jsx     # Light-dismiss quote modal
+    │   └── Footer.jsx         # 2026 copyright, address & quick links
+    ├── data/
+    │   └── servicesData.js    # Business profile details & gallery data
+    └── utils/
+        └── electricalCalc.js  # Motor FLA, cable gauge & breaker algorithms
 ```
 
 ---
 
 ## 🚦 Getting Started
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+ recommended, tested on v22)
-- [MongoDB](https://www.mongodb.com/) (Optional: if not running, backend uses graceful in-memory storage)
-
-### Installation
-
-Install all dependencies for root, server, and client:
-```bash
-npm run install-all
-```
-
-Alternatively, install individually:
+### 1. Install Dependencies
 ```bash
 npm install
-npm install --prefix server
-npm install --prefix client
 ```
 
----
-
-## 💻 Running the Application
-
-### 1. Run Full Stack Concurrently (Recommended)
-From the root directory:
+### 2. Start Development Server
 ```bash
 npm run dev
 ```
-This runs both:
-- **Backend Server**: `http://localhost:5000`
-- **Frontend Client**: `http://localhost:5173`
+Open **[http://localhost:5173](http://localhost:5173)** in your browser.
 
-### 2. Run Individually
-**To run server only:**
+### 3. Build for Production
 ```bash
-npm run dev:server
-# or: cd server && npm run dev
+npm run build
 ```
-
-**To run client only:**
-```bash
-npm run dev:client
-# or: cd client && npm run dev
-```
-
-### 3. Production Build
-```bash
-npm run build:client
-```
-
----
-
-## 🔌 API Endpoints
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Service health status & server timestamp |
-| `POST` | `/api/enquiries` | Submit client technical enquiry / quote request |
-| `GET` | `/api/enquiries` | Retrieve enquiries list |
-| `POST` | `/api/estimator/calculate` | Server-side electrical load verification |
+Creates an optimized static bundle in `dist/`, ready to deploy directly to Netlify, Vercel, or any static hosting service.
 
 ---
 

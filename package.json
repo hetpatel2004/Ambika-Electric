@@ -1,19 +1,27 @@
 {
-  "name": "ambika-electric-mern",
-  "version": "1.0.0",
-  "description": "Ambika Electric - Industrial Electrical Engineering MERN Stack Application",
+  "name": "ambika-electric",
   "private": true,
+  "version": "1.0.0",
+  "description": "Ambika Electric - Modern Industrial Electrical Engineering Web Application",
+  "type": "module",
   "scripts": {
-    "install-all": "npm install && npm install --prefix server && npm install --prefix client",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "npm run dev --prefix server",
-    "dev:client": "npm run dev --prefix client",
-    "start": "node server/index.js",
-    "build:client": "npm run build --prefix client"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "lucide-react": "^1.49.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
-  },
-  "author": "Ambika Electric",
-  "license": "ISC"
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "vite": "^8.3.0"
+  }
 }

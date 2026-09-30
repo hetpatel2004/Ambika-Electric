@@ -45,32 +45,30 @@ export default function QuoteModal({ isOpen, onClose, initialSpecs = null, initi
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
+    const ref = 'QP-' + Math.floor(1000 + Math.random() * 9000);
+
+    const newQuote = {
+      id: ref,
+      ...formData,
+      specs: initialSpecs,
+      date: new Date().toISOString(),
+    };
+
     try {
-      await fetch('/api/enquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          estimatedSpecs: initialSpecs ? {
-            motorHp: initialSpecs.hp,
-            voltage: `${initialSpecs.voltage}V`,
-            fullLoadCurrent: initialSpecs.results?.fullLoadCurrent,
-            suggestedCable: initialSpecs.results?.suggestedCable,
-            recommendedBreaker: initialSpecs.results?.recommendedBreaker,
-          } : undefined,
-        }),
-      });
-      setSubmitted(true);
+      const existing = JSON.parse(localStorage.getItem('ambika_quotes') || '[]');
+      localStorage.setItem('ambika_quotes', JSON.stringify([newQuote, ...existing]));
     } catch (err) {
-      console.warn('Quote modal submit notice:', err);
-      setSubmitted(true);
-    } finally {
-      setLoading(false);
+      console.warn('LocalStorage save note:', err);
     }
+
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 300);
   };
 
   return (
@@ -96,19 +94,30 @@ export default function QuoteModal({ isOpen, onClose, initialSpecs = null, initi
             <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
               <CheckCircle className="w-7 h-7" />
             </div>
-            <h3 className="text-xl font-bold text-white">Quotation Request Sent!</h3>
+            <h3 className="text-xl font-bold text-white">Quotation Request Logged!</h3>
             <p className="text-slate-300 text-xs sm:text-sm">
-              We have received your specifications. Vishad Patel or our engineering desk will call you shortly with quotation details.
+              We have received your specifications. Vishad Patel or our engineering desk will review them promptly.
             </p>
-            <div className="pt-2">
+
+            <div className="pt-2 flex flex-col sm:flex-row gap-2 justify-center">
+              <a
+                href={`https://wa.me/919998577955?text=${encodeURIComponent(
+                  `Hello Vishad bhai, I requested a quote for:\n${formData.message}\nContact: ${formData.name} (${formData.phone})`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow"
+              >
+                <span>Send to WhatsApp</span>
+              </a>
               <button
                 onClick={() => {
                   setSubmitted(false);
                   onClose();
                 }}
-                className="py-2 px-6 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs"
+                className="py-2 px-5 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-medium text-xs"
               >
-                Done
+                Close
               </button>
             </div>
           </div>

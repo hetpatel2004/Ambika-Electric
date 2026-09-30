@@ -13,7 +13,7 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [referenceId, setReferenceId] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -22,43 +22,35 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMsg('');
+
+    const ref = 'AE-' + Math.floor(1000 + Math.random() * 9000);
+    setReferenceId(ref);
+
+    const newEnquiry = {
+      id: ref,
+      ...formData,
+      specs: prefilledSpecs ? {
+        hp: prefilledSpecs.hp,
+        voltage: prefilledSpecs.voltage,
+        fla: prefilledSpecs.results?.fullLoadCurrent,
+      } : null,
+      date: new Date().toISOString(),
+    };
 
     try {
-      const response = await fetch('/api/enquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          estimatedSpecs: prefilledSpecs ? {
-            motorHp: prefilledSpecs.hp,
-            voltage: `${prefilledSpecs.voltage}V (${prefilledSpecs.phase})`,
-            fullLoadCurrent: `${prefilledSpecs.results?.fullLoadCurrent || ''} A`,
-            suggestedCable: prefilledSpecs.results?.suggestedCable || '',
-            recommendedBreaker: prefilledSpecs.results?.recommendedBreaker || '',
-          } : undefined,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setSubmitted(true);
-      } else {
-        setErrorMsg(data.message || 'Unable to submit enquiry. Please call us directly.');
-      }
-    } catch (err) {
-      console.warn('Backend enquiry submission note:', err);
-      // Graceful fallback for offline dev
-      setSubmitted(true);
-    } finally {
-      setLoading(false);
+      const existing = JSON.parse(localStorage.getItem('ambika_enquiries') || '[]');
+      localStorage.setItem('ambika_enquiries', JSON.stringify([newEnquiry, ...existing]));
+    } catch (e) {
+      console.warn('LocalStorage save note:', e);
     }
+
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 400);
   };
 
   return (
@@ -186,10 +178,37 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
                   <CheckCircle className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Enquiry Received Successfully</h3>
+                <div className="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
+                  Reference: #{referenceId}
+                </div>
+                <h3 className="text-2xl font-bold text-white">Enquiry Logged Successfully</h3>
                 <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-                  Thank you for reaching out to <strong className="text-amber-400">Ambika Electric</strong>. Proprietor <strong className="text-white">Vishad Patel</strong> or our technical team will review your specifications and get in touch promptly.
+                  Thank you for reaching out to <strong className="text-amber-400">Ambika Electric</strong>. Proprietor <strong className="text-white">Vishad Patel</strong> or our engineering desk will review your details promptly.
                 </p>
+
+                {/* Instant WhatsApp Dispatch Button */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={`https://wa.me/919998577955?text=${encodeURIComponent(
+                      `Hello Vishad bhai, I submitted an enquiry (Ref: #${referenceId}).\nName: ${formData.name}\nPhone: ${formData.phone}\nService: ${formData.service}\nDetails: ${formData.message}`
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Send Directly via WhatsApp</span>
+                  </a>
+
+                  <a
+                    href={`tel:${COMPANY_INFO.phone1Raw}`}
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Call Now</span>
+                  </a>
+                </div>
+
                 <div className="pt-4">
                   <button
                     onClick={() => {
@@ -202,7 +221,7 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
                         message: '',
                       });
                     }}
-                    className="py-2.5 px-6 rounded-xl bg-slate-900 text-amber-400 border border-slate-700 hover:bg-slate-800 text-xs font-semibold"
+                    className="py-2 px-5 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 text-xs font-medium"
                   >
                     Submit Another Enquiry
                   </button>
