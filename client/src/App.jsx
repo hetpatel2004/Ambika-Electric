@@ -5,6 +5,7 @@ import Services from './components/Services';
 import Estimator from './components/Estimator';
 import WhyChooseUs from './components/WhyChooseUs';
 import Workflow from './components/Workflow';
+import Gallery from './components/Gallery';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import QuoteModal from './components/QuoteModal';
@@ -57,6 +58,9 @@ export default function App() {
 
         {/* 4-Step Engineering Protocol */}
         <Workflow />
+
+        {/* Real-World Workshop & Engineering Gallery */}
+        <Gallery onOpenQuoteModal={handleOpenGeneralQuote} />
 
         {/* Direct Contact & Enquiry Section */}
         <ContactSection

@@ -17,6 +17,7 @@ export default function Navbar({ onOpenQuoteModal }) {
   const navLinks = [
     { name: 'Services', href: '#services' },
     { name: 'Load & Panel Estimator', href: '#estimator', highlight: true },
+    { name: 'Workshop Gallery', href: '#gallery' },
     { name: 'Why Us', href: '#why-us' },
     { name: 'Workflow', href: '#workflow' },
     { name: 'Contact', href: '#contact' },

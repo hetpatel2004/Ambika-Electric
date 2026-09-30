@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Award, Clock, Cpu, CheckCircle2, Factory, Settings } from 'lucide-react';
+import { ShieldAlert, Award, Clock, Cpu, CheckCircle2, Factory, Settings, Zap, ArrowRight } from 'lucide-react';
 import { TARGET_CLIENTS } from '../data/servicesData';
 
 export default function WhyChooseUs({ onOpenQuoteModal }) {
@@ -32,7 +32,7 @@ export default function WhyChooseUs({ onOpenQuoteModal }) {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
             Industrial Advantage
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
@@ -62,6 +62,51 @@ export default function WhyChooseUs({ onOpenQuoteModal }) {
               </div>
             );
           })}
+        </div>
+
+        {/* Visual Engineering Spotlight Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center">
+          {/* Visual 1: Stator Coil Photo Spotlight */}
+          <div className="relative rounded-2xl overflow-hidden border border-slate-800 group shadow-xl">
+            <div className="aspect-[16/10] overflow-hidden bg-slate-900">
+              <img
+                src="/images/motor_winding.jpg"
+                alt="Precision Class H Copper Winding"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="px-2.5 py-1 rounded bg-amber-500 text-slate-950 text-xs font-bold uppercase tracking-wider mb-2 inline-block">
+                Workshop Standard
+              </span>
+              <h4 className="text-xl font-bold text-white">Class H/F High-Temperature Winding</h4>
+              <p className="text-xs text-slate-300 mt-1 max-w-md">
+                Using 99.9% oxygen-free copper wire, nomex slot insulation, and multi-dip thermal resin baking.
+              </p>
+            </div>
+          </div>
+
+          {/* Visual 2: Custom Control Panel Spotlight */}
+          <div className="relative rounded-2xl overflow-hidden border border-slate-800 group shadow-xl">
+            <div className="aspect-[16/10] overflow-hidden bg-slate-900">
+              <img
+                src="/images/custom_control_panel.jpg"
+                alt="Engineered Industrial Control Panel"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="px-2.5 py-1 rounded bg-cyan-500 text-slate-950 text-xs font-bold uppercase tracking-wider mb-2 inline-block">
+                Panel Fabrication
+              </span>
+              <h4 className="text-xl font-bold text-white">Precision Wire Ducting & Heavy Busbars</h4>
+              <p className="text-xs text-slate-300 mt-1 max-w-md">
+                Built to withstand continuous heavy vibration, heat dissipation, and sudden motor inrush currents.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Industries & Sectors Served Banner */}

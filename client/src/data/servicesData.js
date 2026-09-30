@@ -21,6 +21,7 @@ export const SERVICES = [
   {
     id: 'motor-winding',
     title: 'Heavy Motor Winding & Maintenance',
+    image: '/images/motor_winding.jpg',
     shortDesc:
       'Industrial AC & DC motor rewinding, heavy induction machinery overhauls, and transformer maintenance designed to minimize plant downtime.',
     fullDesc:
@@ -39,6 +40,7 @@ export const SERVICES = [
   {
     id: 'control-panels',
     title: 'Custom Control Panel Design',
+    image: '/images/custom_control_panel.jpg',
     shortDesc:
       'Engineered industrial control panels, MCC, PCC, APFC, and starter panels tailored to specific factory workflows and stringent safety standards.',
     fullDesc:
@@ -57,6 +59,7 @@ export const SERVICES = [
   {
     id: 'industrial-consulting',
     title: 'Industrial Electrical Consulting',
+    image: '/images/electrical_diagnostics.jpg',
     shortDesc:
       'Comprehensive diagnostic assessments, electrical safety audits, thermal/load profiling, and preventive maintenance strategies.',
     fullDesc:
@@ -75,6 +78,7 @@ export const SERVICES = [
   {
     id: 'industrial-automation',
     title: 'Industrial Automation & PLC Integration',
+    image: '/images/industrial_automation.jpg',
     shortDesc:
       'Modern automation architecture, sensor & drive integration, VFD installations, and automated process sequence controls.',
     fullDesc:
@@ -89,6 +93,44 @@ export const SERVICES = [
       'PLC Panel Wiring & Field Instrument Interfacing',
       'Energy Saving Variable Speed Pump & Fan Systems',
     ],
+  },
+];
+
+export const GALLERY_ITEMS = [
+  {
+    id: 'gal-1',
+    title: 'Heavy Stator Coil Rewinding',
+    category: 'Motor Winding',
+    image: '/images/motor_winding.jpg',
+    description: 'Precision Class H enameled copper winding for high-temperature continuous manufacturing motors.',
+  },
+  {
+    id: 'gal-2',
+    title: 'Custom Industrial Control Panel Enclosure',
+    category: 'Control Panels',
+    image: '/images/custom_control_panel.jpg',
+    description: '415V three-phase busbars, coordinated contactors, and organized cable ducting built for factory floor durability.',
+  },
+  {
+    id: 'gal-3',
+    title: 'Thermal & Multimeter Diagnostics',
+    category: 'Diagnostics',
+    image: '/images/electrical_diagnostics.jpg',
+    description: 'On-site thermal imaging and live load current verification on heavy plant distribution switchgear.',
+  },
+  {
+    id: 'gal-4',
+    title: 'PLC & VFD Automation Cabinet',
+    category: 'Automation',
+    image: '/images/industrial_automation.jpg',
+    description: 'Variable frequency drive bank and PLC rack for automated conveyor and machine speed synchronization.',
+  },
+  {
+    id: 'gal-5',
+    title: 'Kadadra Engineering Workshop Floor',
+    category: 'Workshop',
+    image: '/images/hero_workshop.jpg',
+    description: 'Heavy crane hoist, multi-motor assembly bays, and panel testing station at Sardar Industrial Estate.',
   },
 ];
 

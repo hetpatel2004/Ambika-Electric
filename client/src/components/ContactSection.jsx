@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, MapPin, Send, CheckCircle, AlertCircle, Clock, Building, User, Mail, MessageSquare } from 'lucide-react';
+import { Phone, MapPin, Send, CheckCircle, AlertCircle, Clock, Building, User, Mail, MessageSquare, ShieldCheck } from 'lucide-react';
 import { COMPANY_INFO, SERVICES } from '../data/servicesData';
 
 export default function ContactSection({ prefilledService = '', prefilledSpecs = null }) {
@@ -54,7 +54,7 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
       }
     } catch (err) {
       console.warn('Backend enquiry submission note:', err);
-      // Even if network fails or backend is offline, inform the user gracefully
+      // Graceful fallback for offline dev
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -67,7 +67,7 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider">
             Industrial Hotline & Workshop
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
@@ -83,29 +83,37 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
           {/* Left Column: Business Details & Contact Cards */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* Workshop Address Card */}
-            <div className="glass-card rounded-2xl p-6 sm:p-7 border border-slate-800">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-amber-400" />
+            {/* Workshop Address Card with Visual Photo */}
+            <div className="glass-card rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+              <div className="relative h-44 overflow-hidden bg-slate-900">
+                <img
+                  src="/images/hero_workshop.jpg"
+                  alt="Ambika Electric Workshop Facility"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-xs text-amber-400 font-bold bg-slate-950/80 px-2.5 py-1 rounded-md border border-slate-800">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>Sardar Industrial Estate, Kadadra</span>
                 </div>
-                <div>
-                  <span className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block">
-                    Workshop & Office Location
-                  </span>
-                  <h4 className="text-base font-bold text-white mt-1 mb-2">Ambika Electric</h4>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    {COMPANY_INFO.address}
-                  </p>
-                  <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-amber-400 font-medium">
-                    <span>Near Narnarayan Kanta</span> • <span>Sardar Industrial Estate</span>
-                  </div>
+              </div>
+
+              <div className="p-6">
+                <span className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block">
+                  Workshop & Office Location
+                </span>
+                <h4 className="text-lg font-bold text-white mt-1 mb-2">Ambika Electric</h4>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {COMPANY_INFO.address}
+                </p>
+                <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+                  <span className="text-amber-400 font-medium">Landmark:</span> Near Narnarayan Kanta
                 </div>
               </div>
             </div>
 
             {/* Direct Phone Numbers Card */}
-            <div className="glass-card rounded-2xl p-6 sm:p-7 border border-slate-800 space-y-4">
+            <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
               <span className="text-[11px] uppercase tracking-wider text-slate-400 font-semibold block">
                 Direct Contact & Hotline
               </span>
@@ -161,8 +169,8 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
             </div>
 
             {/* Working Hours */}
-            <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 flex items-center gap-3 text-xs sm:text-sm text-slate-300">
-              <Clock className="w-5 h-5 text-amber-400 shrink-0" />
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center gap-3 text-xs text-slate-300">
+              <Clock className="w-4 h-4 text-amber-400 shrink-0" />
               <div>
                 <strong className="text-white">Operating Hours:</strong> {COMPANY_INFO.hours}
               </div>
@@ -230,17 +238,15 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
                     <label className="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1.5">
                       Your Name *
                     </label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="e.g. Ramesh Bhai"
-                        className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="e.g. Ramesh Bhai"
+                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                    />
                   </div>
 
                   <div>
