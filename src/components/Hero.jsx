@@ -1,8 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Zap, ShieldCheck, Cpu, ArrowRight, Calculator, CheckCircle2, PhoneCall, Sparkles } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 export default function Hero({ onOpenQuoteModal }) {
+  // Continuous letter-by-letter typewriter animation phrases
+  const phrases = [
+    'Engineering Solutions',
+    'Heavy Motor Winding',
+    'Custom Control Panels',
+    'Industrial Automation',
+    'Safety & Diagnostics',
+  ];
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    // Finished typing current phrase -> pause before deleting
+    if (subIndex === phrases[phraseIndex].length + 1 && !isDeleting) {
+      const pauseTimeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, 2000);
+      return () => clearTimeout(pauseTimeout);
+    }
+
+    // Finished deleting -> move to next phrase
+    if (subIndex === 0 && isDeleting) {
+      setIsDeleting(false);
+      setPhraseIndex((prev) => (prev + 1) % phrases.length);
+      return;
+    }
+
+    // Typing and deleting cadence
+    const speed = isDeleting ? 40 : 85;
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (isDeleting ? -1 : 1));
+    }, speed);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, isDeleting, phraseIndex]);
+
+  const currentTypedText = phrases[phraseIndex].substring(0, subIndex);
+
   return (
     <section className="relative overflow-hidden pt-10 pb-20 lg:pt-16 lg:pb-28 mesh-pattern">
       {/* Ambient Radial Gradient Accents */}
@@ -23,11 +63,17 @@ export default function Hero({ onOpenQuoteModal }) {
               <span>Industrial Electrical Engineering • Kadadra, Gujarat</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-              Precision Electrical <br />
-              <span className="bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-500 bg-clip-text text-transparent">
-                Engineering Solutions
+            {/* Unique Animated Letter-by-Letter Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.14]">
+              <span className="block text-slate-100 mb-1">
+                Precision Electrical
+              </span>
+              <span className="inline-flex items-center min-h-[1.25em] flex-wrap">
+                <span className="bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+                  {currentTypedText}
+                </span>
+                {/* Continuous Electric Blinking Cursor */}
+                <span className="inline-block w-1 sm:w-1.5 h-[0.9em] bg-amber-400 ml-2 rounded-sm animate-pulse shadow-[0_0_12px_#f59e0b] -translate-y-0.5"></span>
               </span>
             </h1>
 
