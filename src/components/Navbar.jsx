@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Phone, Menu, X, ArrowUpRight, ShieldCheck, MapPin } from 'lucide-react';
+import { Zap, Phone, Menu, X, ArrowUpRight, MapPin } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 export default function Navbar({ onOpenQuoteModal }) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Phone, MapPin, Globe, Shield, ExternalLink } from 'lucide-react';
+import { Zap, Phone, MapPin, Globe, ExternalLink } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 export default function Footer() {

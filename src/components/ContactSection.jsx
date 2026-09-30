@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Phone, MapPin, Send, CheckCircle, AlertCircle, Clock, Building, User, Mail, MessageSquare, ShieldCheck } from 'lucide-react';
-import { COMPANY_INFO, SERVICES } from '../data/servicesData';
+import { Phone, MapPin, Send, CheckCircle, AlertCircle, Clock, MessageSquare } from 'lucide-react';
+import { COMPANY_INFO } from '../data/servicesData';
 
 export default function ContactSection({ prefilledService = '', prefilledSpecs = null }) {
   const [formData, setFormData] = useState({
@@ -14,16 +14,23 @@ export default function ContactSection({ prefilledService = '', prefilledSpecs =
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [referenceId, setReferenceId] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    if (errorMsg) setErrorMsg('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      setErrorMsg('Please provide your name and contact phone number.');
+      return;
+    }
+    setErrorMsg('');
     setLoading(true);
 
     const ref = 'AE-' + Math.floor(1000 + Math.random() * 9000);

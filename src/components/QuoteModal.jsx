@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Send, CheckCircle, Zap, Shield, Phone } from 'lucide-react';
+import { X, CheckCircle, Zap } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
 export default function QuoteModal({ isOpen, onClose, initialSpecs = null, initialService = '' }) {

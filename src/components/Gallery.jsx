@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, ZoomIn, ArrowRight, CheckCircle2, Sparkles, X } from 'lucide-react';
+import { Camera, ZoomIn, ArrowRight, X } from 'lucide-react';
 import { GALLERY_ITEMS } from '../data/servicesData';
 
 export default function Gallery({ onOpenQuoteModal }) {

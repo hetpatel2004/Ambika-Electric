@@ -1,8 +1,8 @@
 import React from 'react';
-import { ShieldAlert, Award, Clock, Cpu, CheckCircle2, Factory, Settings, Zap, ArrowRight } from 'lucide-react';
+import { ShieldAlert, Award, Clock, CheckCircle2, Factory, Settings } from 'lucide-react';
 import { TARGET_CLIENTS } from '../data/servicesData';
 
-export default function WhyChooseUs({ onOpenQuoteModal }) {
+export default function WhyChooseUs() {
   const highlights = [
     {
       icon: Clock,

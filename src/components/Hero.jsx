@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, ShieldCheck, Cpu, ArrowRight, Calculator, CheckCircle2, PhoneCall, Sparkles } from 'lucide-react';
+import { Zap, ArrowRight, Calculator, CheckCircle2, PhoneCall } from 'lucide-react';
 import { COMPANY_INFO } from '../data/servicesData';
 
-export default function Hero({ onOpenQuoteModal }) {
-  // Continuous letter-by-letter typewriter animation phrases
-  const phrases = [
-    'Engineering Solutions',
-    'Heavy Motor Winding',
-    'Custom Control Panels',
-    'Industrial Automation',
-    'Safety & Diagnostics',
-  ];
+// Continuous letter-by-letter typewriter animation phrases
+const PHRASES = [
+  'Engineering Solutions',
+  'Heavy Motor Winding',
+  'Custom Control Panels',
+  'Industrial Automation',
+  'Safety & Diagnostics',
+];
 
+export default function Hero({ onOpenQuoteModal }) {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     // Finished typing current phrase -> pause before deleting
-    if (subIndex === phrases[phraseIndex].length + 1 && !isDeleting) {
+    if (subIndex === PHRASES[phraseIndex].length + 1 && !isDeleting) {
       const pauseTimeout = setTimeout(() => {
         setIsDeleting(true);
       }, 2000);
       return () => clearTimeout(pauseTimeout);
     }
 
-    // Finished deleting -> move to next phrase
+    // Finished deleting -> pause briefly then move to next phrase
     if (subIndex === 0 && isDeleting) {
-      setIsDeleting(false);
-      setPhraseIndex((prev) => (prev + 1) % phrases.length);
-      return;
+      const switchTimeout = setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
+      }, 250);
+      return () => clearTimeout(switchTimeout);
     }
 
     // Typing and deleting cadence
@@ -41,7 +43,7 @@ export default function Hero({ onOpenQuoteModal }) {
     return () => clearTimeout(timeout);
   }, [subIndex, isDeleting, phraseIndex]);
 
-  const currentTypedText = phrases[phraseIndex].substring(0, subIndex);
+  const currentTypedText = PHRASES[phraseIndex].substring(0, subIndex);
 
   return (
     <section className="relative overflow-hidden pt-10 pb-20 lg:pt-16 lg:pb-28 mesh-pattern">

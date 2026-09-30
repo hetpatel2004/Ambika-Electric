@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { WORKFLOW_STEPS } from '../data/servicesData';
 
 export default function Workflow() {
