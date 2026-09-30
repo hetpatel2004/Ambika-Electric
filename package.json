@@ -1,0 +1,19 @@
+{
+  "name": "ambika-electric-mern",
+  "version": "1.0.0",
+  "description": "Ambika Electric - Industrial Electrical Engineering MERN Stack Application",
+  "private": true,
+  "scripts": {
+    "install-all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "start": "node server/index.js",
+    "build:client": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "author": "Ambika Electric",
+  "license": "ISC"
+}
